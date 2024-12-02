@@ -15,7 +15,7 @@ def is_level_safe(prev, curr, INCRESING):
 def is_report_safe(report):
     INCRESING = report[1] - report[0] > 0
 
-    for idx, (prev, curr) in enumerate(zip(report, report[1:])):
+    for prev, curr in zip(report, report[1:]):
 
         if not is_level_safe(prev, curr, INCRESING):
             return False
