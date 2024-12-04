@@ -2,7 +2,6 @@ def is_safe(report):
     MIN = 1
     MAX = 3
     
-
     prev = report[0]
     curr = report[1]
 
