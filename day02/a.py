@@ -1,17 +1,28 @@
-import functools
-
-def sum_lines(x, y):
-    return f'{x[0] - x[1]} {x[1] + y[1]}'
-
-
-with open('day01/input.txt') as f:
-
-    lines = f.readlines()
-    left = map(lambda x: int(x.strip().split(' ')[0]), lines)
-    left = sorted(list(left))
-
-    rigth = map(lambda x: int(x.strip().split(' ')[-1]), lines)
-    rigth = sorted(list(rigth))
+def is_safe(report):
+    MIN = 1
+    MAX = 3
     
-total = [abs(x[0] - x[1]) for x in zip(left, rigth)]
-print(sum(total))
+
+    prev = report[0]
+    curr = report[1]
+
+    INCRESING = curr - prev > 0
+
+    for prev, curr in zip(report, report[1:]):
+
+        if abs(curr-prev) > MAX or abs(curr-prev) < MIN:
+            return False
+        
+        if INCRESING and curr - prev < 0:
+            return False
+        
+        elif not INCRESING and curr - prev > 0:
+            return False
+        
+    return True
+
+reports = [list(map(int, line.strip().split(' '))) for line in open('day02/input.txt', 'r').readlines()]
+
+safe_reports = list(filter(is_safe, reports))
+
+print(len(safe_reports))
