@@ -1,5 +1,3 @@
-import functools
-
 def sum_lines(x, y):
     return f'{x[0] - x[1]} {x[1] + y[1]}'
 
