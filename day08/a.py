@@ -1,6 +1,7 @@
 def add_antinode(y_max: int, x_max: int, antinode: complex):
     return (0 <= antinode.imag < x_max) and (0 <= antinode.real < y_max)
 
+
 antenas = {}
 input = [line.strip() for line in open("day08/input.txt", "r")]
 YMAX = len(input)
@@ -18,15 +19,10 @@ for antena_locs in antenas:
     
             anti1 = loc1 + (loc1 - loc2)
             if add_antinode(YMAX, XMAX, anti1):
-                if input[int(anti1.real)][int(anti1.imag)] == '.':
-                    input[int(anti1.real)] = input[int(anti1.real)][:int(anti1.imag)] + '#' + input[int(anti1.real)][int(anti1.imag)+1:]
                 antinodes.add(anti1)
 
             anti2 = loc2 + (loc2 - loc1)
             if add_antinode(YMAX, XMAX, anti2):
-                if input[int(anti2.real)][int(anti2.imag)] == '.':
-                    input[int(anti2.real)] = input[int(anti2.real)][:int(anti2.imag)] + '#' + input[int(anti2.real)][int(anti2.imag)+1:]
-                
                 antinodes.add(anti2)
 
 print(len(antinodes))

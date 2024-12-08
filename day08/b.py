@@ -1,6 +1,17 @@
 def add_antinode(y_max: int, x_max: int, antinode: complex):
     return (0 <= antinode.imag < x_max) and (0 <= antinode.real < y_max)
 
+def insert_antinodes(loc1, loc2, YMAX, XMAX):
+    antinodes = set([])
+    anti = loc1
+    i = 0
+    while add_antinode(YMAX, XMAX, anti):
+        antinodes.add(anti)
+        i+=1
+        anti = loc1 + (loc1-loc2)*i
+
+    return antinodes
+
 antenas = {}
 input = [line.strip() for line in open("day08/input.txt", "r")]
 YMAX = len(input)
@@ -15,29 +26,8 @@ antinodes = set([])
 for antena_locs in antenas:
     for idx, loc1 in enumerate(antenas[antena_locs]):
         for loc2 in antenas[antena_locs][idx+1:]:
-    
-            anti1 = loc1
-            i = 0
-            while add_antinode(YMAX, XMAX, anti1):
-                if input[int(anti1.real)][int(anti1.imag)] == '.':
-                    input[int(anti1.real)] = input[int(anti1.real)][:int(anti1.imag)] + '#' + input[int(anti1.real)][int(anti1.imag)+1:]
-                
-                antinodes.add(anti1)
-                i += 1
-                anti1 = loc1 + (loc1-loc2)*i
-
-            if add_antinode(YMAX, XMAX, anti1):
-                
-                antinodes.add(anti1)
-
-            anti2 = loc2
-            i = 0
-            while add_antinode(YMAX, XMAX, anti2):
-                if input[int(anti2.real)][int(anti2.imag)] == '.':
-                    input[int(anti2.real)] = input[int(anti2.real)][:int(anti2.imag)] + '#' + input[int(anti2.real)][int(anti2.imag)+1:]
-                
-                antinodes.add(anti2)
-                i += 1
-                anti2 = loc2 + (loc2-loc1)*i
+            
+            antinodes = antinodes.union(insert_antinodes(loc1, loc2, YMAX, XMAX))
+            antinodes = antinodes.union(insert_antinodes(loc2, loc1, YMAX, XMAX))
 
 print(len(antinodes))
