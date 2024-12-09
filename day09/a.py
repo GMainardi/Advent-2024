@@ -23,7 +23,7 @@ def fill_disk(disk, queue):
 
         if not disk:
             break
-        
+
         while disk[0][1] != '.':
             filled_disk.append(disk.pop(0))
         
@@ -51,7 +51,6 @@ def fill_disk(disk, queue):
 def check_sum(disk):
     sum = 0
     idx = 0
-    print(disk)
     for space, id in disk:
         while space > 0:
             sum += idx * id
