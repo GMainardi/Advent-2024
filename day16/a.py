@@ -1,4 +1,5 @@
 from heapq import heappop, heappush
+from functools import reduce
 
 def can_step(maze, step):
     return maze[step[0]][step[1]] != '#'
@@ -39,7 +40,7 @@ def get_allowed_steps(maze, pos, direction):
     return allowed
 
 def dijkstra(maze, start):
-    queue = [(0, start, (0, 1), set())] 
+    queue = [(0, start, (0, 1), set([start]))] 
     visited = {
         pos: {direction: {"score": float("inf"), "tiles": set()} for direction in [(0, 1), (1, 0), (0, -1), (-1, 0)]}
         for pos in get_maze_points(maze)
@@ -51,10 +52,11 @@ def dijkstra(maze, start):
         for step, new_dir in allowed:
             step_score = score + 1 if new_dir == direction else score + 1000
             state = visited[step][new_dir]
+
             if step_score > state["score"]:
                 continue
 
-            new_tiles = tiles | {(step, new_dir)}
+            new_tiles = tiles | {step}
             state["score"] = step_score
             state["tiles"] |= new_tiles
             heappush(queue, (step_score, step, new_dir, state["tiles"]))
@@ -69,4 +71,6 @@ maze[start[0]][start[1]] = '.'
 maze[end[0]][end[1]] = '.'
 
 paths = dijkstra(maze, start)
-print(min(map(lambda x: x['score'], paths[end].values())))
+best_path = min(paths[end].values(), key = lambda x: x['score'])
+
+print(best_path['score'])

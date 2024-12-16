@@ -72,4 +72,5 @@ maze[end[0]][end[1]] = '.'
 
 paths = dijkstra(maze, start)
 best_path = min(paths[end].values(), key = lambda x: x['score'])
+
 print(len(best_path['tiles']))
