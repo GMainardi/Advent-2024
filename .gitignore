@@ -2,3 +2,5 @@
 **/example.txt
 .DS_Store
 .venv
+**/__pycache__
+day17/program.py
