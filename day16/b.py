@@ -1,5 +1,4 @@
 from heapq import heappop, heappush
-from functools import reduce
 
 def can_step(maze, step):
     return maze[step[0]][step[1]] != '#'
