@@ -20,7 +20,7 @@ def is_pattern_possible(towels, pattern):
     return is_possible
 
 possible_patterns_count = 0
-for pattern in tqdm(requests):
+for pattern in requests:
     possible_patterns_count += is_pattern_possible(towels, pattern)
         
 
