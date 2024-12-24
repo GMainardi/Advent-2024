@@ -4,3 +4,5 @@
 .venv
 **/__pycache__
 day17/program.py
+day24/fix.txt
+day24/out.txt
