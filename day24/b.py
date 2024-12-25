@@ -14,7 +14,7 @@ with open('day24/out.txt', 'wb') as out:
         out.write(bytes(srting, 'utf-8'))
     out.write(b'}')
 
-
+# I've mannualy searched for the solution using the graphviz https://dreampuf.github.io/GraphvizOnline/?engine=fdp (fdp engine works the best on my opinion)
 result = [
     'z09', 'rkf',
     'vcg', 'z24',
